@@ -22,7 +22,7 @@ export default function InitiativeTimeFilter() {
           icon={<CodeIcon />}
           label="Code"
           // variant="outlined"
-          onClick={handleClick}s
+          onClick={handleClick}
           color="primary"
         />
         <Chip

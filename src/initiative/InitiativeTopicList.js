@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  Chip,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Avatar, Chip, Divider, Grid, Stack, Typography } from "@mui/material";
 
 import CodeIcon from "@mui/icons-material/Code";
 import SecurityIcon from "@mui/icons-material/Security";
@@ -18,7 +12,7 @@ export default function InitiativeTopicList() {
     <Box
       sx={{
         width: "100%",
-        mt: "50px"
+        mt: "50px",
       }}
     >
       <Grid container spacing={1} sx={{ margin: "10px" }}>
@@ -46,8 +40,12 @@ export default function InitiativeTopicList() {
         </Grid>
 
         <Grid item xs={12} md={3}>
+          <Typography variant="h6" component="span"></Typography>
           <Typography variant="h6" component="span">
-            <Chip label="EXECUTED" color="success" variant="outlined" />
+            <Stack direction="row" spacing={2}>
+              <Chip label="PENDING" color="warning" variant="outlined" />
+              <Chip label="VOTE" color="info" variant="outlined" onClick={{}} />
+            </Stack>
           </Typography>
         </Grid>
       </Grid>
@@ -79,16 +77,14 @@ export default function InitiativeTopicList() {
 
         <Grid item xs={12} md={3}>
           <Typography variant="h6" component="span">
-            <Chip label="EXECUTED" color="success" variant="outlined" />
+            <Stack direction="row" spacing={2}>
+              <Chip label="EXECUTED" color="success" variant="outlined" />
+            </Stack>
           </Typography>
         </Grid>
       </Grid>
 
-
-      
       <Divider color="#2E3B55" variant="middle" sx={{ height: "2px" }} />
-
-
 
       <Grid container spacing={1} sx={{ margin: "10px" }}>
         <Grid>
@@ -115,7 +111,9 @@ export default function InitiativeTopicList() {
 
         <Grid item xs={12} md={3}>
           <Typography variant="h6" component="span">
-            <Chip label="EXECUTED" color="success" variant="outlined" />
+            <Stack direction="row" spacing={2}>
+              <Chip label="CANCELLED" color="error" variant="outlined" />
+            </Stack>
           </Typography>
         </Grid>
       </Grid>

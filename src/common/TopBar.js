@@ -38,11 +38,11 @@ export default function TopBar() {
 
           <Box sx={{ flexGrow: 1 }}>
             <Button
-              color="inherit"
+              color="error"
               style={{ float: "right" }}
               variant="outlined"
             >
-              Connect
+              CONNECT WALLET
             </Button>
           </Box>
         </Toolbar>
