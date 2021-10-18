@@ -1,7 +1,7 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import Routes from "./Routes";
-import TopBar from "./TopBar";
+import Routes from "./common/Routes";
+import TopBar from "./common/TopBar";
 
 function App() {
   return (

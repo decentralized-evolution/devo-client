@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import DevoTimeline from "./DevoTimeline";
-import Initiatives from "./initiatives/Initiatives";
+import DevoTimeline from "../timeline/DevoTimeline";
+import Initiatives from "../initiative/Initiatives";
 
 export default function Routes() {
   return (
