@@ -20,7 +20,7 @@ export default function TopBar() {
             DEVO
           </Typography>
 
-          <Box sx={{ flexGrow: 1, height: "100%" }}>
+          <Box sx={{ flexGrow: 1, height: "100%", marginLeft:"100px" }}>
             <Link to="/initiatives">
               <Button color="inherit" className="router-item" sx={{ height: "100%" }}>
                 Initiatives
@@ -31,7 +31,7 @@ export default function TopBar() {
               <Button color="inherit">Timeline</Button>
             </Link>
             |
-            <Link to="/timeline">
+            <Link to="/about">
               <Button color="inherit">About</Button>
             </Link>
           </Box>
