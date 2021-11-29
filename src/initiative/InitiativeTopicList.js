@@ -44,7 +44,7 @@ export default function InitiativeTopicList() {
           <Typography variant="h6" component="span">
             <Stack direction="row" spacing={2}>
               <Chip label="PENDING" color="warning" variant="outlined" />
-              <Chip label="VOTE" color="info" variant="outlined" onClick={{}} />
+              <Chip label="VOTE" color="info" variant="outlined" />
             </Stack>
           </Typography>
         </Grid>

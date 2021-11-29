@@ -5,11 +5,51 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { Alert, Snackbar } from "@mui/material";
 
-export default function TopBar() {
+export default function TopBar({
+  connectWallet,
+  connectError,
+  isWalletConnected,
+}) {
+  const [isAlertOpen, setIsAlertOpen] = React.useState(undefined);
+
+  React.useEffect(() => {
+    setIsAlertOpen(true);
+  }, [connectError]);
+
+  let connectBtn;
+
+  if (isWalletConnected) {
+    connectBtn = (
+      <Button color="success" style={{ float: "right" }} variant="outlined">
+        WALLET CONNECTED
+      </Button>
+    );
+  } else {
+    connectBtn = (
+      <Button
+        color="error"
+        style={{ float: "right" }}
+        variant="outlined"
+        onClick={connectWallet}
+      >
+        CONNECT WALLET
+      </Button>
+    );
+  }
+
+  const handleErrorClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setIsAlertOpen(false);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#2E3B55' }}>
+      <AppBar position="static" style={{ background: "#2E3B55" }}>
         <Toolbar>
           <Typography
             align="left"
@@ -20,9 +60,13 @@ export default function TopBar() {
             DEVO
           </Typography>
 
-          <Box sx={{ flexGrow: 1, height: "100%", marginLeft:"100px" }}>
+          <Box sx={{ flexGrow: 1, height: "100%", marginLeft: "100px" }}>
             <Link to="/initiatives">
-              <Button color="inherit" className="router-item" sx={{ height: "100%" }}>
+              <Button
+                color="inherit"
+                className="router-item"
+                sx={{ height: "100%" }}
+              >
                 Initiatives
               </Button>
             </Link>
@@ -36,17 +80,18 @@ export default function TopBar() {
             </Link>
           </Box>
 
-          <Box sx={{ flexGrow: 1 }}>
-            <Button
-              color="error"
-              style={{ float: "right" }}
-              variant="outlined"
-            >
-              CONNECT WALLET
-            </Button>
-          </Box>
+          <Box sx={{ flexGrow: 1 }}>{connectBtn}</Box>
         </Toolbar>
       </AppBar>
+      <Snackbar
+        open={isAlertOpen && connectError !== undefined}
+        autoHideDuration={6000}
+        onClose={handleErrorClose}
+      >
+        <Alert severity="error" variant="filled" onClose={handleErrorClose}>
+          Failed to connect wallet - {connectError}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
