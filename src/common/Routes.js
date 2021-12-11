@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import DevoTimeline from "../timeline/DevoTimeline";
 import Initiatives from "../initiative/Initiatives";
 import About from "../about/about";
+import Projects from "../project/Projects";
 
 export default function Routes() {
   return (
@@ -12,6 +13,7 @@ export default function Routes() {
           <Redirect to="/initiatives" />
         </Route>
 
+        <Route exact path="/projects" component={Projects} />
         <Route exact path="/initiatives" component={Initiatives} />
         <Route exact path="/timeline" component={DevoTimeline} />
         <Route exact path="/about" component={About} />

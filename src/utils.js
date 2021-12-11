@@ -1,12 +1,15 @@
-import Web3 from "web3";
+import { ethers } from "ethers";
+import DevoProject from "./artifacts/contracts/DevoProject.sol/DevoProject.json";
 
-const getWeb3 = () => {
+const devoProjectAddress = "0xBC5440F8044de9Ee7DDF52E5920830aA976F1827";
+
+const getEthers = () => {
   return new Promise(async (resolve, reject) => {
     if (window.ethereum) {
-      const web3 = new Web3(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
       try {
-        await window.ethereum.enable();
-        resolve(web3);
+        await provider.send("eth_requestAccounts", []);
+        resolve(provider);
       } catch (error) {
         reject(error);
       }
@@ -18,4 +21,34 @@ const getWeb3 = () => {
   });
 };
 
-export { getWeb3 };
+const getDevoProject = async () => {
+  return new Promise(async (resolve, reject) => {
+    if (typeof window.ethereum !== "undefined") {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        devoProjectAddress,
+        DevoProject.abi,
+        provider
+      );
+      var contractWithSigner = contract.connect(signer);
+      try {
+        await contractWithSigner.createProject("hey project".concat(new Date().getTime()));
+        contractWithSigner.on("AddProject", (_owner, _id) => {
+          console.log("created a devo project with id -> ", _id.toNumber());
+        });
+        try {
+          const projectName = await contract.getProjectName(3);
+          console.log(projectName);
+        } catch (e) {
+          console.log(e);
+        }
+        resolve(contractWithSigner);
+      } catch (err) {
+        reject(err);
+      }
+    }
+  });
+};
+
+export { getEthers, getDevoProject };

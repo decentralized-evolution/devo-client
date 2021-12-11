@@ -3,23 +3,26 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Routes from "./common/Routes";
 import TopBar from "./common/TopBar";
-import { getWeb3 } from "./utils";
+import { getDevoProject, getEthers } from "./utils";
 
 function App() {
-  const [web3, setWeb3] = useState(undefined);
-  const [accounts, setAccounts] = useState(undefined);
+  const [ethers, setEthers] = useState(undefined);
+  const [signer, setSigner] = useState(undefined);
+  const [devoProject, setDevoProject] = useState(undefined);
   const [connectError, setConnectError] = useState(undefined);
 
   let isWalletConnected =
-    typeof web3 !== "undefined" && typeof accounts !== "undefined";
+    typeof ethers !== "undefined" && typeof signer !== "undefined";
 
   const connectWallet = async () => {
     setConnectError(undefined);
     try {
-      const web3 = await getWeb3();
-      const accounts = await web3.eth.getAccounts();
-      setWeb3(web3);
-      setAccounts(accounts);
+      const ethers = await getEthers();
+      const signer = await ethers.getSigner();
+      const devoProject = await getDevoProject();
+      setEthers(ethers);
+      setSigner(signer);
+      setDevoProject(devoProject);
     } catch (error) {
       setConnectError(error);
     }

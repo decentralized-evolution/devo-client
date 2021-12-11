@@ -49,7 +49,7 @@ export default function TopBar({
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: "#2E3B55" }}>
+      <AppBar position="static" style={{ background: "#153155" }}>
         <Toolbar>
           <Typography
             align="left"
@@ -61,14 +61,12 @@ export default function TopBar({
           </Typography>
 
           <Box sx={{ flexGrow: 1, height: "100%", marginLeft: "100px" }}>
+            <Link to="/projects">
+              <Button color="inherit">Projects</Button>
+            </Link>
+            |
             <Link to="/initiatives">
-              <Button
-                color="inherit"
-                className="router-item"
-                sx={{ height: "100%" }}
-              >
-                Initiatives
-              </Button>
+              <Button color="inherit">Initiatives</Button>
             </Link>
             |
             <Link to="/timeline">
