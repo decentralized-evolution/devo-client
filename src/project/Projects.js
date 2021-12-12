@@ -1,56 +1,31 @@
-import {
-  Container,
-  Grid
-} from "@mui/material";
+import { Container, Grid } from "@mui/material";
+import { useEffect, useState } from "react";
+import { getDevoProjects } from "../utils";
 import ProjectCard from "./ProjectCard";
 
-
 export default function Projects() {
+  const [devoProjects, setDevoProjects] = useState([]);
+
+  useEffect(() => {
+    const init = async () => {
+      const devoProjects = await getDevoProjects();
+      setDevoProjects(devoProjects);
+    };
+    init();
+  }, []);
+
   return (
     <Container sx={{ mt: 2 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <ProjectCard
-            name="First Project"
-            logoUrl="/static/first_project.png"
-            description="Phasellus rutrum a diam eget ultricies. Praesent sit amet justo et mauris gravida consectetur volutpat et diam."
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <ProjectCard
-            name="Second Project"
-            logoUrl="/static/second_project.png"
-            description="Curabitur purus mi, ultrices aliquet sagittis non, bibendum quis quam. Mauris faucibus lorem ac lacus semper, vitae semper risus tincidunt."
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <ProjectCard
-            name="Second Project"
-            logoUrl="/static/second_project.png"
-            description="Curabitur purus mi, ultrices aliquet sagittis non, bibendum quis quam. Mauris faucibus lorem ac lacus semper, vitae semper risus tincidunt."
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <ProjectCard
-            name="Second Project"
-            logoUrl="/static/second_project.png"
-            description="Curabitur purus mi, ultrices aliquet sagittis non, bibendum quis quam. Mauris faucibus lorem ac lacus semper, vitae semper risus tincidunt."
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <ProjectCard
-            name="Second Project"
-            logoUrl="/static/second_project.png"
-            description="Curabitur purus mi, ultrices aliquet sagittis non, bibendum quis quam. Mauris faucibus lorem ac lacus semper, vitae semper risus tincidunt."
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <ProjectCard
-            name="Second Project"
-            logoUrl="/static/second_project.png"
-            description="Curabitur purus mi, ultrices aliquet sagittis non, bibendum quis quam. Mauris faucibus lorem ac lacus semper, vitae semper risus tincidunt."
-          />
-        </Grid>
+        {devoProjects.map((project, i) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={project.id}>
+            <ProjectCard
+              name={project.name}
+              logoUrl={project.logoURI}
+              description={project.description}
+            />
+          </Grid>
+        ))}
       </Grid>
     </Container>
   );

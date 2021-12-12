@@ -21,34 +21,34 @@ const getEthers = () => {
   });
 };
 
-const getDevoProject = async () => {
+const getDevoProjects = async () => {
   return new Promise(async (resolve, reject) => {
-    if (typeof window.ethereum !== "undefined") {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        devoProjectAddress,
-        DevoProject.abi,
-        provider
-      );
-      var contractWithSigner = contract.connect(signer);
-      try {
-        await contractWithSigner.createProject("hey project".concat(new Date().getTime()));
-        contractWithSigner.on("AddProject", (_owner, _id) => {
-          console.log("created a devo project with id -> ", _id.toNumber());
-        });
-        try {
-          const projectName = await contract.getProjectName(3);
-          console.log(projectName);
-        } catch (e) {
-          console.log(e);
+    const provider = new ethers.providers.InfuraWebSocketProvider("rinkeby");
+    const contract = new ethers.Contract(
+      devoProjectAddress,
+      DevoProject.abi,
+      provider
+    );
+    let projects = [];
+    try {
+      var latestProjectIndex = await contract.getLatestIndex();
+      for (var _i = 0; _i <= latestProjectIndex; _i++) {
+        let name = await contract.getProjectName(_i);
+
+        if (name) {
+          projects.push({
+            id: _i,
+            name: name,
+            logoURI: await contract.getProjectLogoURI(_i),
+            description: await contract.getProjectDescription(_i),
+          });
         }
-        resolve(contractWithSigner);
-      } catch (err) {
-        reject(err);
       }
+      resolve(projects);
+    } catch (e) {
+      console.log(e);
     }
   });
 };
 
-export { getEthers, getDevoProject };
+export { getEthers, getDevoProjects };
