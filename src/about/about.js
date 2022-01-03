@@ -5,10 +5,6 @@ import * as React from "react";
 export default function About() {
   return (
     <Container sx={{ mt: 2 }}>
-      <Typography variant="h4" component="h2">
-        Whitepaper
-      </Typography>
-
       <Typography variant="h5" component="h2" textAlign="left">
         Introduction
       </Typography>

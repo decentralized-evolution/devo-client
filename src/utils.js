@@ -46,9 +46,35 @@ const getDevoProjects = async () => {
       }
       resolve(projects);
     } catch (e) {
-      console.log(e);
+      reject(e);
     }
   });
 };
 
-export { getEthers, getDevoProjects };
+const getDevoProject = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    const provider = new ethers.providers.InfuraWebSocketProvider("rinkeby");
+    const contract = new ethers.Contract(
+      devoProjectAddress,
+      DevoProject.abi,
+      provider
+    );
+    try {
+      let name = await contract.getProjectName(id);
+      if (name) {
+        resolve({
+          id: id,
+          name: name,
+          logoURI: await contract.getProjectLogoURI(id),
+          description: await contract.getProjectDescription(id),
+        });
+      } else {
+        reject("Project not found!");
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export { getEthers, getDevoProjects, getDevoProject };
