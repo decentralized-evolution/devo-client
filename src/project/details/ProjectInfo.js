@@ -14,13 +14,12 @@ export default function ProjectInfo({ projectId }) {
   }, [projectId]);
 
   return (
-    <Grid container direction="row" alignItems="center">
-      <Grid item lg={1} ml='15px'>
+    <Grid container direction="row" alignItems="center" sx={{ mt: 3, mb: 3 }}>
+      <Grid item lg={1}>
         <Avatar
           alt={devoProject.name}
           src={devoProject.logoURI}
           sx={{ width: 75, height: 75 }}
-          
         />
       </Grid>
       <Grid item lg={9}>
@@ -29,6 +28,5 @@ export default function ProjectInfo({ projectId }) {
         </Typography>
       </Grid>
     </Grid>
-    
   );
 }
