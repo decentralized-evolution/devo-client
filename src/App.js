@@ -33,7 +33,7 @@ function App() {
           connectError={connectError}
           isWalletConnected={isWalletConnected}
         />
-        <Routes />
+        <Routes isWalletConnected={isWalletConnected} />
       </Router>
     </div>
   );

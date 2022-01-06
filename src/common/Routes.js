@@ -6,7 +6,9 @@ import About from "../about/about";
 import ProjectList from "../project/list/ProjectList";
 import ProjectDetails from "../project/details/ProjectDetails";
 
-export default function Routes() {
+export default function Routes({
+  isWalletConnected,
+}) {
   return (
     <div>
       <Switch>
@@ -14,7 +16,7 @@ export default function Routes() {
           <Redirect to="/projects" />
         </Route>
 
-        <Route exact path="/projects" component={ProjectList} />
+        <Route exact path="/projects" component={() => <ProjectList isWalletConnected={isWalletConnected} />}/>
         <Route exact path="/projects/:projectId" component={ProjectDetails} />
         <Route exact path="/initiatives" component={Initiatives} />
         <Route exact path="/timeline" component={DevoTimeline} />

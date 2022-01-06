@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getDevoProjects } from "../../utils";
 import ProjectCard from "./ProjectCard";
 
-export default function ProjectList() {
+export default function ProjectList({ isWalletConnected }) {
   const [devoProjects, setDevoProjects] = useState([]);
 
   useEffect(() => {
@@ -14,10 +14,10 @@ export default function ProjectList() {
     init();
   }, []);
 
-  let content;
+  let content = [];
 
   if (devoProjects.length === 0) {
-    content = (
+    content.push(
       <Grid
         container
         spacing={0}
@@ -32,16 +32,27 @@ export default function ProjectList() {
       </Grid>
     );
   } else {
-    content = devoProjects.map((project, i) => (
-      <Grid item xs={12} sm={6} md={4} lg={3} key={project.id}>
-        <ProjectCard
-          id={project.id}
-          name={project.name}
-          logoUrl={project.logoURI}
-          description={project.description}
-        />
-      </Grid>
-    ));
+    content = [];
+
+    if (isWalletConnected) {
+      content.push(
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <ProjectCard isAddCard={true} />
+        </Grid>
+      );
+    }
+    content.push(
+      devoProjects.map((project, i) => (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={project.id}>
+          <ProjectCard
+            id={project.id}
+            name={project.name}
+            logoUrl={project.logoURI}
+            description={project.description}
+          />
+        </Grid>
+      ))
+    );
   }
 
   return (
