@@ -6,7 +6,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { Link as RouterLink } from "react-router-dom";
@@ -22,7 +21,7 @@ export default function ProjectCard({
 
   if (isAddCard) {
     cardContent = (
-      <CardActionArea component={RouterLink} to={"/projects/#"}>
+      <CardActionArea component={RouterLink} to={"/projects/add"}>
         <CardContent sx={{height: 352}}>
         <AddCircleIcon
           sx={{fontSize: 100, marginTop:10}}
@@ -52,7 +51,7 @@ export default function ProjectCard({
             {name}
           </Typography>
           <Typography variant="body2" color="white">
-            {description}
+            {description.length > 30 ? description.substring(0, 30) + "..." : description}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -77,4 +77,28 @@ const getDevoProject = async (id) => {
   });
 };
 
-export { getEthers, getDevoProjects, getDevoProject };
+const createDevoProject = (name, description, logoURI) => {
+  return new Promise(async (resolve, reject) => {
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contractWithSigner = new ethers.Contract(
+        devoProjectAddress,
+        DevoProject.abi,
+        signer
+      );
+      try {
+        await contractWithSigner.createProject(name, logoURI, description);
+        resolve(provider);
+      } catch (error) {
+        reject(error);
+      }
+    } else if (window.web3) {
+      resolve(window.web3);
+    } else {
+      reject("Must install Metamask");
+    }
+  });
+};
+
+export { getEthers, getDevoProjects, getDevoProject, createDevoProject };

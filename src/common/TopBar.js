@@ -65,8 +65,8 @@ export default function TopBar({
               <Button color="inherit">Projects</Button>
             </Link>
             |
-            <Link to="/initiatives">
-              <Button color="inherit">Initiatives</Button>
+            <Link to="/governance">
+              <Button color="inherit">Governance</Button>
             </Link>
             |
             <Link to="/timeline">
