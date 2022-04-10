@@ -1,3 +1,5 @@
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/styles";
 import React, { useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
@@ -25,8 +27,21 @@ function App() {
     }
   };
 
+  const theme = createTheme({
+    palette: {
+      type: 'dark',
+      primary: {
+        main: '#3c3c3c',
+      },
+      secondary: {
+        main: '#7e57c2',
+      },
+    },
+  });
+
   return (
     <div className="App">
+      <ThemeProvider theme={theme}>
       <Router>
         <TopBar
           connectWallet={connectWallet}
@@ -35,6 +50,7 @@ function App() {
         />
         <Routes isWalletConnected={isWalletConnected} />
       </Router>
+      </ThemeProvider>
     </div>
   );
 }

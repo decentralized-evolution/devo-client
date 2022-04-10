@@ -1,8 +1,6 @@
 import { ethers } from "ethers";
 import DevoProject from "./artifacts/contracts/DevoProject.sol/DevoProject.json";
 
-const devoProjectAddress = "0xBC5440F8044de9Ee7DDF52E5920830aA976F1827";
-
 const getEthers = () => {
   return new Promise(async (resolve, reject) => {
     if (window.ethereum) {
@@ -22,10 +20,11 @@ const getEthers = () => {
 };
 
 const getDevoProjects = async () => {
+  console.log(process.env.REACT_APP_PROJECT_CONTRACT_ADDRESS)
   return new Promise(async (resolve, reject) => {
     const provider = new ethers.providers.InfuraWebSocketProvider("rinkeby");
     const contract = new ethers.Contract(
-      devoProjectAddress,
+      process.env.REACT_APP_PROJECT_CONTRACT_ADDRESS,
       DevoProject.abi,
       provider
     );
@@ -55,7 +54,7 @@ const getDevoProject = async (id) => {
   return new Promise(async (resolve, reject) => {
     const provider = new ethers.providers.InfuraWebSocketProvider("rinkeby");
     const contract = new ethers.Contract(
-      devoProjectAddress,
+      process.env.REACT_APP_PROJECT_CONTRACT_ADDRESS,
       DevoProject.abi,
       provider
     );
@@ -83,7 +82,7 @@ const createDevoProject = (name, description, logoURI) => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contractWithSigner = new ethers.Contract(
-        devoProjectAddress,
+        process.env.REACT_APP_PROJECT_CONTRACT_ADDRESS,
         DevoProject.abi,
         signer
       );
